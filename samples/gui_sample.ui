@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>867</width>
-    <height>693</height>
+    <width>707</width>
+    <height>539</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -202,6 +202,19 @@ li.checked::marker { content: &quot;\2612&quot;; }
             <string>Помощь</string>
            </property>
           </widget>
+          <widget class="QPushButton" name="parseButton">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>60</y>
+             <width>81</width>
+             <height>25</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>parse</string>
+           </property>
+          </widget>
          </widget>
         </item>
        </layout>
@@ -216,7 +229,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>867</width>
+     <width>707</width>
      <height>22</height>
     </rect>
    </property>

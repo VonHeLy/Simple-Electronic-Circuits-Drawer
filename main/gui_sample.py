@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file 'PyQt/QtProject1/samples/gui_sample.ui'
+# Form implementation generated from reading ui file 'samples/gui_sample.ui'
 #
 # Created by: PyQt6 UI code generator 6.11.0
 #
@@ -13,7 +13,7 @@ class Ui_ElementEditor(object):
     def setupUi(self, ElementEditor):
         ElementEditor.setObjectName("ElementEditor")
         ElementEditor.setWindowModality(QtCore.Qt.WindowModality.WindowModal)
-        ElementEditor.resize(867, 693)
+        ElementEditor.resize(707, 539)
         ElementEditor.setMinimumSize(QtCore.QSize(560, 360))
         self.centralwidget = QtWidgets.QWidget(parent=ElementEditor)
         self.centralwidget.setEnabled(True)
@@ -104,6 +104,9 @@ class Ui_ElementEditor(object):
         self.tooltipHelpLabel = QtWidgets.QLabel(parent=self.instrumentBox)
         self.tooltipHelpLabel.setGeometry(QtCore.QRect(10, 30, 61, 17))
         self.tooltipHelpLabel.setObjectName("tooltipHelpLabel")
+        self.parseButton = QtWidgets.QPushButton(parent=self.instrumentBox)
+        self.parseButton.setGeometry(QtCore.QRect(10, 60, 81, 25))
+        self.parseButton.setObjectName("parseButton")
         self.inputLayout.addWidget(self.instrumentBox)
         self.editLayout.addLayout(self.inputLayout)
         self.editLayout.setStretch(0, 3)
@@ -116,7 +119,7 @@ class Ui_ElementEditor(object):
         self.statusbar.setObjectName("statusbar")
         ElementEditor.setStatusBar(self.statusbar)
         self.menubar = QtWidgets.QMenuBar(parent=ElementEditor)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 867, 22))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 707, 22))
         self.menubar.setObjectName("menubar")
         self.menufile = QtWidgets.QMenu(parent=self.menubar)
         self.menufile.setObjectName("menufile")
@@ -150,6 +153,7 @@ class Ui_ElementEditor(object):
         self.instrumentBox.setTitle(_translate("ElementEditor", "Инструменты"))
         self.tooltipHelpLabel.setToolTip(_translate("ElementEditor", "bebebebe"))
         self.tooltipHelpLabel.setText(_translate("ElementEditor", "Помощь"))
+        self.parseButton.setText(_translate("ElementEditor", "parse"))
         self.menufile.setTitle(_translate("ElementEditor", "file"))
         self.actionsave.setText(_translate("ElementEditor", "save"))
         self.actionopen.setText(_translate("ElementEditor", "open"))
