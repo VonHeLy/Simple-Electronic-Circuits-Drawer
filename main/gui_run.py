@@ -5,8 +5,11 @@ from random import randint
 from datetime import datetime
 
 
-LETTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюя"
+import classes
 
+
+LETTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюя"
+ELEMENTS_TYPES = [classes.Resistor, classes.Lamp, classes.Diode]
 
 class MainWindow(QMainWindow, Ui_ElementEditor):
     def __init__(self):
@@ -19,47 +22,38 @@ class MainWindow(QMainWindow, Ui_ElementEditor):
     def __post_init__(self):
         self.parseButton.clicked.connect(self.text_processing)
 
-    def text_processing(self):
-        # uid = str(randint(100000, 999999)) + datetime.now().strftime("%Y%m%d%H%M%S")
-
+    def init_element(self, info):
         self.data.clear()
+        current_item = info.strip()
+        uid = str(randint(100, 999)) + \
+            datetime.now().strftime("%Y%m%d%H%M%S")
+        detected_type = None
+        for element_type in ELEMENTS_TYPES:
+            if current_item.strip().rstrip('[]0123456789R=- ;,./').lower() in element_type.names:
+                detected_type = element_type
+        self.data.append({"uid": uid, "type": detected_type})
+        self.update_element_list()
+
+    def update_element_list(self):
+        self.elementList.clear()
+        for item in self.data:
+            self.elementList.addItem(str(item['type']))
+            print(f"Added {item['type']} with UID {item['uid']} to the list.")
+
+    def text_processing(self):
         self.elementList.clear()
         raw_text = str(self.textEdit.toPlainText())
-        self.raw_data = raw_text.replace("\n", " ").replace("\t", " ")
-        sbracket_open = False
-        fbracket_open = False
-        can_be_closed = False
-        elements = 0
-        current_item = ""
-        for i, char in enumerate(self.raw_data):
-            if char == "[":
-                sbracket_open = True
-                continue
-            elif char == "]":
-                sbracket_open = False
-                can_be_closed = True
+        self.raw_data = raw_text.replace("\t", " ").replace("  ", " ")
+        self.raw_data = self.raw_data.split("\n")
 
-            if ((char == " " and self.raw_data[i + 1] in LETTERS)\
-                or (char in [']', '}', ')']))\
-                and not sbracket_open and not fbracket_open\
-                and current_item != ""\
-                or i == len(self.raw_data) - 1:
-                can_be_closed = True
+        for item in self.raw_data:
+            if item.strip() != "":
+                self.init_element(item)
+            
+        self.status = f"Processed {len(self.raw_data)} items."
+        #self.statusLabel.setText(self.status)
 
-            if can_be_closed:
-                current_item = current_item.strip()
-                uid = str(randint(100, 999)) + \
-                    datetime.now().strftime("%Y%m%d%H%M%S")
-                self.data.append({"uid": uid, "type": current_item})
-                elements += 1
-                current_item = ""
-                continue
-            else:
-                if char.replace(" ", "") != "":
-                    current_item += char
 
-        for item in self.data:
-            self.elementList.addItem(f"{item['uid']} - {item['type']}")
 
 
 if __name__ == '__main__':
