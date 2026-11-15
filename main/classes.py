@@ -3,6 +3,7 @@ from dataclasses import dataclass
 
 @dataclass
 class Element:
+    __name__ = "Базовый"
     uid: str
     resistance: float
     size: tuple
@@ -13,19 +14,19 @@ class Element:
 
 @dataclass
 class Resistor(Element):
-    name = "Resistor"
+    __name__ = "Resistor"
     names = ["r", "resistor", "резистор"]
 
 
 @dataclass
 class Lamp(Element):
-    name = "Lamp"
+    __name__ = "Lamp"
     names = ["l", "lamp", "лампа"]
 
 
 @dataclass
 class Diode(Element):
-    name = "Diode"
+    __name__ = "Diode"
     names = ["d", "diode", "диод"]
 
 
