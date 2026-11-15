@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>867</width>
-    <height>693</height>
+    <width>707</width>
+    <height>539</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -82,13 +82,48 @@
          <string>Свойства выбранного элемента</string>
         </property>
         <layout class="QGridLayout" name="gridLayout">
+         <item row="1" column="1">
+          <widget class="QLineEdit" name="idInput">
+           <property name="enabled">
+            <bool>true</bool>
+           </property>
+           <property name="placeholderText">
+            <string>Введите id</string>
+           </property>
+          </widget>
+         </item>
          <item row="3" column="1">
-          <widget class="QDoubleSpinBox" name="doubleSpinBox"/>
+          <widget class="QDoubleSpinBox" name="resistanceInput">
+           <property name="maximum">
+            <double>100000000.000000000000000</double>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="idLabel">
+           <property name="text">
+            <string>id:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="QLabel" name="typeLabel">
+           <property name="text">
+            <string>Тип:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="0">
+          <widget class="QLabel" name="resistanceLabel">
+           <property name="text">
+            <string>Сопротивление:</string>
+           </property>
+          </widget>
          </item>
          <item row="0" column="1">
           <widget class="QComboBox" name="typeInput">
            <property name="enabled">
-            <bool>false</bool>
+            <bool>true</bool>
            </property>
            <property name="currentText">
             <string>Базовый</string>
@@ -103,37 +138,6 @@
              <string>Другой</string>
             </property>
            </item>
-          </widget>
-         </item>
-         <item row="3" column="0">
-          <widget class="QLabel" name="resistanceLabel">
-           <property name="text">
-            <string>Сопротивление:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="0">
-          <widget class="QLabel" name="typeLabel">
-           <property name="text">
-            <string>Тип:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QLabel" name="idLabel">
-           <property name="text">
-            <string>id:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="1">
-          <widget class="QLineEdit" name="nameInput">
-           <property name="enabled">
-            <bool>false</bool>
-           </property>
-           <property name="placeholderText">
-            <string>Введите id</string>
-           </property>
           </widget>
          </item>
         </layout>
@@ -202,6 +206,19 @@ li.checked::marker { content: &quot;\2612&quot;; }
             <string>Помощь</string>
            </property>
           </widget>
+          <widget class="QPushButton" name="parseButton">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>60</y>
+             <width>81</width>
+             <height>25</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>parse</string>
+           </property>
+          </widget>
          </widget>
         </item>
        </layout>
@@ -216,7 +233,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>867</width>
+     <width>707</width>
      <height>22</height>
     </rect>
    </property>
