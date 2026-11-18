@@ -6,11 +6,11 @@ from gui_sample import Ui_ElementEditor
 from random import randint
 from datetime import datetime
 
-import classes
+import elements
 
 
 LETTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюя"
-ELEMENTS_TYPES = [classes.Resistor, classes.Lamp, classes.Diode]
+ELEMENTS_TYPES = [elements.Resistor, elements.Lamp, elements.Diode]
 
 
 class MainWindow(QMainWindow, Ui_ElementEditor):
@@ -29,7 +29,7 @@ class MainWindow(QMainWindow, Ui_ElementEditor):
         self.idInput.textChanged.connect(self.update_selected_element_type)
         self.resistanceInput.valueChanged.connect(self.update_selected_element_type)
 
-    def _get_selected_element(self):
+    def get_selected_element(self):
         current_item = self.elementList.currentItem()
         if current_item is None:
             return None
@@ -50,7 +50,7 @@ class MainWindow(QMainWindow, Ui_ElementEditor):
         self.textEdit.setPlainText(str_text)
 
     def update_selected_element_type(self):
-        selected = self._get_selected_element()
+        selected = self.get_selected_element()
         if selected is None:
             return
 
@@ -70,7 +70,7 @@ class MainWindow(QMainWindow, Ui_ElementEditor):
             print(f"Error saving data to {filename}: {e}")
 
     def show_element_properties(self):
-        selected = self._get_selected_element()
+        selected = self.get_selected_element()
         if selected is None:
             return
 
@@ -90,7 +90,7 @@ class MainWindow(QMainWindow, Ui_ElementEditor):
     def _extract_element_name_and_params(self, info):
         current_item = str(info).strip()
         if not current_item:
-            raise classes.ParserError("Empty element data.")
+            raise elements.ParserError("Empty element data.")
 
         left_bracket = current_item.find("[")
         right_bracket = current_item.rfind("]")
@@ -103,7 +103,7 @@ class MainWindow(QMainWindow, Ui_ElementEditor):
             parameters = current_item[left_bracket + 1:right_bracket].strip()
 
         if not name_part:
-            raise classes.ParserError(
+            raise elements.ParserError(
                 f"Missing element name in: {current_item}")
 
         parsed_params = {}
@@ -114,7 +114,7 @@ class MainWindow(QMainWindow, Ui_ElementEditor):
                 resistance_match = re.fullmatch(
                     r"\s*([-+]?\d+(?:\.\d+)?)\s*", parameters)
             if not resistance_match:
-                raise classes.ParserError(
+                raise elements.ParserError(
                     f"Invalid parameters format: {current_item}")
             parsed_params["resistance"] = float(resistance_match.group(1))
 
@@ -123,7 +123,7 @@ class MainWindow(QMainWindow, Ui_ElementEditor):
     def init_element(self, info):
         current_item = str(info).strip()
         if not current_item:
-            raise classes.ParserError("Empty element data.")
+            raise elements.ParserError("Empty element data.")
 
         name_part, params = self._extract_element_name_and_params(current_item)
         normalized_name = re.sub(
@@ -136,7 +136,7 @@ class MainWindow(QMainWindow, Ui_ElementEditor):
                 break
 
         if not detected_type:
-            raise classes.ParserError(f"Unknown element type: {current_item}")
+            raise elements.ParserError(f"Unknown element type: {current_item}")
 
         uid = str(randint(100, 999)) + datetime.now().strftime("%d%H%M%S")
         element_data = {
@@ -174,13 +174,13 @@ class MainWindow(QMainWindow, Ui_ElementEditor):
         if not raw_lines:
             self.status = "ParserError: No data to process."
             self.statusbar.showMessage(self.status)
-            raise classes.ParserError("No data to process.")
+            raise elements.ParserError("No data to process.")
 
         try:
             for item in raw_lines:
                 try:
                     self.init_element(item)
-                except classes.ParserError as exc:
+                except elements.ParserError as exc:
                     self.status = f"ParserError: {exc}"
                     self.statusbar.showMessage(self.status)
                     print(f"ParserError: {exc}")
