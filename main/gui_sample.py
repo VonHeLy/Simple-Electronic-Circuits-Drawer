@@ -7,6 +7,7 @@
 
 
 from PyQt6 import QtCore, QtGui, QtWidgets
+from PyQt6.QtSvgWidgets import QSvgWidget
 
 
 class Ui_ElementEditor(object):
@@ -88,7 +89,7 @@ class Ui_ElementEditor(object):
         self.horizontalLayout_2.addLayout(self.elementLayout)
         self.editLayout = QtWidgets.QVBoxLayout()
         self.editLayout.setObjectName("editLayout")
-        self.image_output = QtWidgets.QLabel(parent=self.centralwidget)
+        self.image_output = QSvgWidget(parent=self.centralwidget)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(10)
@@ -168,7 +169,7 @@ class Ui_ElementEditor(object):
         self.typeInput.setCurrentText(_translate("ElementEditor", "Базовый"))
         self.typeInput.setItemText(0, _translate("ElementEditor", "Базовый"))
         self.typeInput.setItemText(1, _translate("ElementEditor", "Другой"))
-        self.image_output.setText(_translate("ElementEditor", "TextLabel"))
+        #self.image_output.setText(_translate("ElementEditor", "TextLabel"))
         self.instrumentBox.setTitle(_translate("ElementEditor", "Инструменты"))
         self.tooltipHelpLabel.setToolTip(_translate("ElementEditor", "bebebebe"))
         self.tooltipHelpLabel.setText(_translate("ElementEditor", "Помощь"))
